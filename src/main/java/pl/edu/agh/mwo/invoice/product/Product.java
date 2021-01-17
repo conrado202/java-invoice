@@ -15,7 +15,7 @@ public abstract class Product {
     		throw new IllegalArgumentException("You cannot add product with null name OR empty name OR null taxPercent");
     	}
     	
-    	if(price == null || price.compareTo(BigDecimal.ZERO) < 0) {
+    	if(price == null || price.compareTo(BigDecimal.ZERO) < 0) {			// BigDecimal.ZERO to bedzie to samo co new BigDecimal("0")
     		throw new IllegalArgumentException("You cannot add product with null price OR price less than 0");
     	}
     	
