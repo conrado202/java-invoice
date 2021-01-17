@@ -29,7 +29,7 @@ public abstract class Product {
         return this.name;
     }
 
-    public BigDecimal getPrice() {
+    public BigDecimal getNettoPrice() {
         return this.price;
     }
 

@@ -24,13 +24,13 @@ public class Invoice {
     	
     }
 
-    public BigDecimal getSubtotal() {
+    public BigDecimal getTotalNettoPrice() {
     	BigDecimal sum = BigDecimal.ZERO;
     	
         for(Product product : this.products.keySet()) {			// Keyset zwraca mi zbior kluczy dla kazdego produktyu zawartego w tej mapie
         	Integer quantity = this.products.get(product);		// Zmienna quantity pobiera informacje na temat ilosci dla danego produktu
         	
-        	sum = sum.add(product.getPrice().multiply(new BigDecimal(quantity)));
+        	sum = sum.add(product.getNettoPrice().multiply(new BigDecimal(quantity)));
         }
         
         return sum;
@@ -50,7 +50,16 @@ public class Invoice {
 		return taxSum;
 	}
 		
-    public BigDecimal getTotal() {
-        return BigDecimal.ZERO;
+    public BigDecimal getTotalBruttoPrice() {
+    	
+        BigDecimal priceWithTaxSum = BigDecimal.ZERO;
+		
+		for(Product product : this.products.keySet()) {			
+        	Integer quantity = this.products.get(product);	
+        	
+        	priceWithTaxSum = priceWithTaxSum.add(product.getPriceWithTax().multiply(new BigDecimal(quantity)));
+		}
+		
+		return priceWithTaxSum;
     }
 }
