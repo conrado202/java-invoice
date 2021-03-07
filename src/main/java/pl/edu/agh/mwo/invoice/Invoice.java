@@ -3,12 +3,14 @@ package pl.edu.agh.mwo.invoice;
 import java.math.BigDecimal;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Random;
 
 import pl.edu.agh.mwo.invoice.product.Product;
 
 public class Invoice {
 	
-    private Map<Product, Integer> products = new LinkedHashMap<>();
+    private static final int number = Math.abs(new Random().nextInt());
+	private Map<Product, Integer> products = new LinkedHashMap<>();
     
     // Nie potrzebujemy tu konsturktora, poniewaz mamy to zalatwione na poziomie deklaracji
     // LiknedHashMap
@@ -55,5 +57,9 @@ public class Invoice {
 	public BigDecimal getTax() {
 			
 		return getTotalBruttoPrice().subtract(getTotalNettoPrice());
+	}
+
+	public int getNumber() {
+		return number ;
 	}
 }
