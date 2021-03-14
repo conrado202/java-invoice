@@ -1,6 +1,7 @@
 package pl.edu.agh.mwo.invoice;
 
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Random;
@@ -9,7 +10,7 @@ import pl.edu.agh.mwo.invoice.product.Product;
 
 public class Invoice {
 	
-    private static final int number = Math.abs(new Random().nextInt());
+    private final int number = Math.abs(new Random().nextInt());
 	private Map<Product, Integer> products = new LinkedHashMap<>();
     
     // Nie potrzebujemy tu konsturktora, poniewaz mamy to zalatwione na poziomie deklaracji
@@ -20,11 +21,18 @@ public class Invoice {
     }
 
     public void addProduct(Product product, Integer quantity) {
-    	products.put(product, quantity);
+//    	products.put(product, quantity);
     	
     	if(quantity <= 0 || quantity == null) {			// BigDecimal.ZERO to bedzie to samo co new BigDecimal("0")
     		throw new IllegalArgumentException("You cannot have got no product OR negative number of products (less than 0)");
     	}
+
+		if (products.containsKey(product)) {
+			Integer productCurrentQuantity = this.products.get(product);
+			this.products.put(product, (productCurrentQuantity + quantity));
+		} else {
+			this.products.put(product, quantity);
+		}
     	
     }
 
@@ -61,6 +69,24 @@ public class Invoice {
 	
 
 	public int getNumber() {
-		return number ;
+		return number;
+	}
+	
+	public String getInvoiceText() {
+		StringBuilder stringbuild = new StringBuilder("");
+		stringbuild.append("Faktura nr " + this.number);
+		
+		DecimalFormat df = new DecimalFormat("0.00");
+		
+		for (Product product : this.products.keySet()) {
+        	Integer quantity = this.products.get(product);	
+			stringbuild.append("\n").append(product.getName()).append(" ").append(quantity).append(" ");
+			stringbuild.append(df.format(product.getPriceWithTax()));
+		}
+		
+		stringbuild.append("\nLiczba pozycji: ");
+		stringbuild.append(products.size());
+		
+		return  stringbuild.toString();
 	}
 }
