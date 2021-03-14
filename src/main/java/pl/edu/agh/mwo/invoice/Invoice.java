@@ -58,6 +58,7 @@ public class Invoice {
 			
 		return getTotalBruttoPrice().subtract(getTotalNettoPrice());
 	}
+	
 
 	public int getNumber() {
 		return number ;
