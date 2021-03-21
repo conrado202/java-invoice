@@ -27,11 +27,10 @@ public class Invoice {
     		throw new IllegalArgumentException("You cannot have got no product OR negative number of products (less than 0)");
     	}
 
-		if (products.containsKey(product)) {
-			Integer productCurrentQuantity = this.products.get(product);
-			this.products.put(product, (productCurrentQuantity + quantity));
+		if (products.get(product) != null) {
+			products.put(product, (products.get(product) + quantity));
 		} else {
-			this.products.put(product, quantity);
+			products.put(product, quantity);
 		}
     	
     }

@@ -130,14 +130,6 @@ public class InvoiceTest {
 		Assert.assertThat(printedInvoice, Matchers.containsString("nr " + number));
 	}
 	
-    
-//	@Test
-//	public void testPrintedInvoiceHasNumber2(){
-//		String printInvoice = invoice.getInvoiceText();
-//		String exampleString = "Faktura nr 12345 \n Chleb 2 12.54\nLiczba pozycji: 23";
-////		String number = invoice.toString(invoice.getNumber());
-//		Assert.assertTrue(printInvoice, exampleString);
-//	}
 	
 	@Test
 	public void testAddTwiceTheSameProduct(){
@@ -145,4 +137,12 @@ public class InvoiceTest {
 		invoice.addProduct(new TaxFreeProduct("Chleb", new BigDecimal("5")));
 		Assert.assertThat(invoice.getInvoiceText(), Matchers.containsString("Chleb 2 5,00"));
 	}
+	
+//	@Test
+//	public void testPrintedInvoiceHasNumber2(){
+//		String printInvoice = invoice.getInvoiceText();
+//		String exampleString = "Faktura nr 12345 \n Chleb 2 12.54\nLiczba pozycji: 23";
+////		String number = invoice.toString(invoice.getNumber());
+//		Assert.assertTrue(printInvoice, exampleString);
+//	}
 }
